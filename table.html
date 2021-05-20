@@ -1,0 +1,208 @@
+<html>
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script src="dist/jquery.PrintArea.js"></script>
+<script type="text/javascript" src="dist/jquery-ean13.min.js"></script>
+<body>
+    <input type="button" id="bt" value="打印" />
+    <!--startprint-->
+    <div class="body" id="printArea">
+        <div style="width: 100%;">
+            <span style="font-size: 20px;font-weight:bold;margin-left:250px;">江门市合丰食品有限公司送货合同</span>
+            <span id="dh"><canvas id="ean" width="100" height="50"></canvas></span>
+        </div>
+        
+        <div id="kh">
+            <span>客户:</span>
+            <span id="khbh">01567</span>
+            <span id="khmc">江门丽宫新会陈皮菜有限公司 含税</span>
+        </div>
+        <div id="addr">
+            <span>地址：</span>
+            <span>江门市新会区会城港兴路7号（2#厂房）</span>
+            <span>电话：</span>
+            <span>13652743219 富哥</span>
+            <span style="float: right;margin-right:20px">2021-02-03 8:50:25</span>
+        </div>
+    
+        
+        <table height="20" width="96%" align="center">
+            <tr>
+                <th width="80">编号</th>
+                <th width="300">品名</th>
+                <th width="60">规格</th>
+                <th width="80">数量</th>
+                <th>单价</th>
+                <th>金额</th>
+                <th>存点</th>
+            </tr>
+            <tr>
+                <td>06007</td>
+                <td>#420ml锦坤山西老陈醋1*12</td>
+                <td style="text-align: center;">1x48</td>
+                <td style="text-align: center;">1 件</td>
+                <td style="text-align: right;">33.600</td>
+                <td style="text-align: center;">33.60</td>
+                <td>门市</td>
+            </tr>
+            <tr>
+                <td>05164</td>
+                <td>#客家盐焗鸡料</td>
+                <td style="text-align: center;">1x48</td>
+                <td style="text-align: center;">10 合</td>
+                <td style="text-align: right;">11.000</td>
+                <td style="text-align: center;">110.00</td>
+                <td>门市</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td style="text-align: center;"></td>
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: center;"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td style="text-align: center;"></td>
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: center;"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td style="text-align: center;"></td>
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: center;"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td style="text-align: center;"></td>
+                <td style="text-align: center;"></td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: center;"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="text-align: center;">总重量：7.04kg</td>
+                <td colspan="3" style="text-align:center">第1/1页小计</td>
+                <td style="text-align: center;font-weight:bold">143.60</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>￥总计：</td>
+                <td style="font-weight: bold;text-align:center">143.60</td>
+                <td colspan="5" style="font-weight: bold;text-align:center">劳动节5月1日放假1天</td>
+            </tr>
+        </table>
+        <div id="info">
+            <span>制单：萍1</span>
+            <span class="deliver">送货：</span>
+            <span style="position: absolute;left: 300px;">红联客户、黄联回单</span>
+            <span style="position: absolute;left: 700px;">欠款</span>
+            <div>
+                <span>地址：江门市白沙丰盛里27号D123卡</span>
+                <span style="margin-left: 25;">电话：3543501 3543502 3543503</span>
+                <span style="margin-left: 25;">(未付款）全名签收：</span>
+            </div>
+            <div>
+                <span>如双方发生纠纷，交由供货方仓库所在地江门市江海区人民法院管辖</span>
+            </div>
+        </div>
+    </div>
+    <!--endprint-->
+    
+
+</body>
+
+</html>
+<script>
+    $(function(){
+        $("#ean").EAN13("5901234123457",{
+            color:'rgba(0,0,0,0.8)'
+        })
+
+        $("#bt").click(function(){
+            $("#printArea").printArea();
+        })
+    })
+</script>
+<script language="javascript" type="text/javascript">
+    function doPrint() { 
+        bdhtml=window.document.body.innerHTML; //获取当前页的html代码
+        sprnstr="<!--startprint-->"; //设置打印开始区域
+        eprnstr="<!--endprint-->";//设置打印结束区域
+        prnhtml=bdhtml.substr(bdhtml.indexOf(sprnstr)+17);//从开始代码向后取html
+        prnhtml=prnhtml.substring(0,prnhtml.indexOf(eprnstr));//从结束代码向前取html
+        window.document.body.innerHTML=prnhtml;
+        window.print();
+    }
+</script>
+<style>
+    h1{
+        text-align: center;
+        font-size: 25px;
+        
+    }
+    
+    th{
+        text-align: center;
+        border: 1px solid black;
+    }
+
+    td{
+        height: 20;
+        font-size: 15;
+        border: 1px solid black;
+    }
+
+    .body{
+        width: 800px;
+        height: 350px;
+        border-width: 1px;
+        border-style: solid;
+        border-color: black;
+    }
+
+    table{
+        border: 1px solid black;
+    }
+
+    #kh{
+        margin-left: 20px;
+    }
+
+    #addr{
+        margin-left: 20px;
+    }
+
+    #dh{
+        margin-left: 60px;
+    }
+    
+    .deliver{
+        position: absolute;
+        left: 150px;
+    }
+
+    #info span{
+        font-size: 13px;
+    }
+
+    #info{
+        margin-left: 20px;
+    }
+
+    #ean{
+        position: relative;
+        top:20;
+    }
+</style>

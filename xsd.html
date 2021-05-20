@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="./dist/jquery.timer.js"></script>
+    <script src="http://cdn.staticfile.org/moment.js/2.24.0/moment.js"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <title>江门顺丰进销存系统--销售单</title>
+    <style type="text/css">
+    
+        *{
+            padding: 0;
+            margin: 0;  
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="content-left">
+            
+            <div class="left-title">
+                <a href="#">江门顺丰</a>
+            </div>
+            <div class="seg"></div>
+            <div class="navi">
+                <!--菜单-->
+                <div class="nav-menu">
+                    <div class="nav-title"><a href="index.php" style="text-decoration: none;color:white">首页</a></div>
+                    <div class="nav-content" id="now-content">
+                        <a href="#">首页</a>
+                    </div>
+                </div>
+                <div class="nav-menu">
+                    <div class="nav-title">销售部</div>
+                    <div class="nav-content">
+                        <a href="#">客户订单</a>
+                        <a href="#">销售单</a>
+                        <a href="#">客户订单列表</a>
+                        <a href="#">销售退货</a>
+                    </div>
+                </div>
+                <div class="nav-menu">
+                    <div class="nav-title">入仓管理</div>
+                    <div class="nav-content">
+                        <a href="#">进货订单</a>
+                        <a href="#">进货单</a>
+                        <a href="#">入仓退货单</a>
+                        <a href="#">入仓退货列表</a>
+                    </div>
+                </div>
+                <div class="nav-menu">
+                    <div class="nav-title">人员管理</div>
+                    <div class="nav-content">
+                        <a href="#">人员管理</a>
+                        <a href="#">权力管理</a>
+                    </div>
+                </div>
+                <div class="nav-menu">
+                    <div class="nav-title">退出登录</div>
+                    <div class="nav-content">
+                        <a href="login.php">退出</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button id="cancelHide">》</button>
+        <div class="content-right">
+            <h1>销售单</h1>
+            <div class="xsd-content">
+                <div class="form-group" style="display: flex;" id="kh1">
+                    <label>客户编号</label>
+                    <input type="text" name="khbh" id="khbh" class="form-control" style="width: 8%;">
+                    <label>客户</label>
+                    <input type="text" name="kh" id="kh" class="form-control" style="width: 50%;">
+                    <label>手机</label>
+                    <input type="text" name="kh" id="kh" class="form-control" style="width: 20%;">
+                    <button class="btn">···</button>
+                </div>
+                <div class="form-group" style="display: flex;" id="kh2">
+                    <label>地址</label>
+                    <input type="text" name="khbh" id="khbh" class="form-control" style="width: 40%;">
+                    <label>时间</label>
+                    <input type="text" name="khbh" id="datetime" class="form-control" style="width: 20%;">
+                    <input type="checkbox" style="margin-top:auto;margin-bottom:auto;margin-left:5px" id="stoptime_checkbox">
+                    <span style="margin-top: auto;margin-bottom:auto;margin-left:5px">暂停时间滚动</span>
+                </div>
+                <div class="seg"></div>
+                <div class="goods-selected">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th style="min-width: 100px;width:8%">编号</th>
+                                <th style="min-width: 1px;width:35%">品名</th>
+                                <th>规格</th>
+                                <th>散数</th>
+                                <th>散单位</th>
+                                <th>散单价</th>
+                                <th>件数</th>
+                                <th>件单位</th>
+                                <th>件单价</th>
+                                <th>金额</th>
+                                <th>存点</th>
+                            </tr>
+                            <tr class="goods">
+                                <td>01850</td>
+                                <td contenteditable="true">家乐牌鸡精1kg*12</td>
+                                <td>1*12</td>
+                                <td contenteditable="true">0</td>
+                                <td contenteditable="true">罐</td>
+                                <td contenteditable="true">12.000</td>
+                                <td contenteditable="true">2</td>
+                                <td contenteditable="true">件</td>
+                                <td contenteditable="true">144.00</td>
+                                <td contenteditable="true">288.00</td>
+                                <td contenteditable="true">门市</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    
+    
+
+    var timeInterval = window.setInterval(function(){
+        var time = moment().format("YYYY-MM-DD HH:mm:ss")
+        $("#datetime").val(time);
+    },1000)
+    
+
+    $(function(){
+
+        $(".nav-content").hide();
+        $("#now-content").show();
+        $("#cancelHide").hide();
+        $("#stoptime_checkbox").click(function(){
+            if($(this).prop("checked")){
+                window.clearInterval(timeInterval);
+            }else{
+                timeInterval = window.setInterval(function(){
+                    var time = moment().format("YYYY-MM-DD HH:mm:ss")
+                    $("#datetime").val(time);
+                },1000)
+            }
+        })
+
+        $(".nav-title").each(function(){
+            $(this).click(function(){
+                var navConEle = $(this).parents(".nav-menu").children(".nav-content")
+                navConEle.slideToggle();
+                
+            })
+        })
+
+        $(".left-title").click(function(){
+            $(".content-left").animate({
+                width:"toggle"
+            })
+            $("#cancelHide").show();
+        })
+
+        $("#cancelHide").click(function(){
+            $(".content-left").animate({
+                width:"toggle"
+            })
+            $("#cancelHide").hide();
+        })
+
+        
+    })
+</script>
+<style>
+    .xsd-content{
+        width: 80%;
+        height: 90%;
+        background-color: rgba(255, 255, 255, 0.6);
+        border-radius: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 20px;
+        padding-top: 20px;
+        box-shadow: 0 0 10px #888888;
+        
+
+    }
+
+    h1{
+        text-align: center;
+    }
+
+    label{
+        display: block;
+        margin-top: auto;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    table{
+        background-color: gainsboro;
+    }
+
+    td{
+        background-color: white;
+    }
+
+    th{
+        text-align: center;
+    }
+
+    td:hover{
+        background-color: rgb(211, 210, 210);
+    }
+
+    .goods-selected{
+        display: block;
+        width: 100%;
+        height: 50%;
+        background-color: #fff;
+        overflow: scroll;
+    }
+</style>
